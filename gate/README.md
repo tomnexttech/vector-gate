@@ -22,7 +22,7 @@ No LLM is involved. The rules are plain Python and the standard library only.
 ## Try it in one folder first (no install)
 
 ```powershell
-python -I examples	ry_in_sandbox.py
+python -I examples/try_in_sandbox.py
 ```
 
 This creates `~/vgate-trial` with a few sample files and a `.claude/settings.local.json` that registers the hook
