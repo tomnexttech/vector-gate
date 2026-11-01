@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(~/.claude/.credentials.json)",
+      "Read(~/.claude.json)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/.git-credentials)",
+      "Edit(//c/Program Files/ClaudeCode/**)",
+      "Write(//c/Program Files/ClaudeCode/**)",
+      "Edit(~/.vector/gate/**)",
+      "Write(~/.vector/gate/**)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "PowerShell(git push:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "{{PYTHON}}",
+            "args": ["-I", "-m", "vector_gate", "hook"],
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

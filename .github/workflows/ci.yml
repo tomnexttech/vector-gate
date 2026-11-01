@@ -1,0 +1,24 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: gate tests
+        working-directory: gate
+        run: python -I -m unittest discover -s tests -v
+      - name: leak gate tests
+        run: python -I -m unittest discover -s tools -v
+      - name: leak gate (generic rules; the owner's denylist never leaves the owner's machine)
+        run: python -I tools/leak_gate.py . --generic-only
